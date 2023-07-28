@@ -35,16 +35,14 @@ d3.json(samples).then(function(bellyData){
         // Get variables
         let sample_values = sampleData.sample_values;
         //console.log(sample_values);
-        let tenID = sampleData.otu_ids;
-        //console.log(tenID);
-        let otu_ids = tenID.map(x => 'OTU ' + x);
+        let otu_ids = sampleData.otu_ids;
         let otu_labels = sampleData.otu_labels;
         //console.log(otu_labels);
 
         // Plot graph
         let barData = [{
             x: sample_values.slice(0,10).reverse(),
-            y: otu_ids.slice(0,10).reverse(),
+            y: otu_ids.map(x => 'OTU ' + x).slice(0,10).reverse(),
             type: 'bar',
             // Assign hover text
             hovertext: otu_labels.slice(0,10).reverse(),
@@ -61,12 +59,12 @@ d3.json(samples).then(function(bellyData){
 
         // Bubble chart data and layout
         let bubbleData = [{
-            x: tenID,
+            x: otu_ids,
             y: sample_values,
             mode: "markers",
             marker: {
             size: sample_values,
-            color: tenID,
+            color: otu_ids,
             colorscale: "Earth"
             },
             text: otu_labels
